@@ -15,10 +15,16 @@ class ViewController: UIViewController, HSegmentControlDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         segmentControl.dataSource = self
+        segmentControl.numberOfDisplayedSegments = 5
+        segmentControl.segmentIndicatorViewContentMode = UIViewContentMode.Bottom
+        segmentControl.selectedTitleFont = UIFont.boldSystemFontOfSize(17)
+        segmentControl.selectedTitleColor = UIColor.darkGrayColor()
+        segmentControl.unselectedTitleFont = UIFont.systemFontOfSize(17)
+        segmentControl.unselectedTitleColor = UIColor.blackColor()
         segmentControl.segmentIndicatorImage = UIImage(named: "ind_img")
         segmentControl.segmentIndicatorView.backgroundColor = UIColor.whiteColor()
-        segmentControl.segmentIndicatorView.layer.cornerRadius = 10
     }
 
     // MARK: - HSegmentControlDataSource protocol
@@ -30,12 +36,15 @@ class ViewController: UIViewController, HSegmentControlDataSource {
         return ["1","two", "threeeeeee", "four", "five"][index]
     }
     
-    func segmentControl(segmentControl: HSegmentControl, segmentViewOfIndex index: Int) -> UIView {
+    func segmentControl(segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView {
         let view = UIView()
         view.backgroundColor = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1)
         return view
     }
     
+    @IBAction func valueChanged(sender: AnyObject) {
+        print("value did change to \((sender as! HSegmentControl).selectedIndex)")
+    }
 
 }
 

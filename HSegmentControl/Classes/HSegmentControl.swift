@@ -14,8 +14,10 @@ public class HSegmentControl: UIControl {
     // MARK: - Data Source
     public var dataSource: HSegmentControlDataSource?{
         didSet{
-            configureViews()
-            selectedIndex = 0
+            reloadData()
+            if selectedIndex >= numberOfSegments {
+                selectedIndex = numberOfSegments - 1
+            }
         }
     }
     
@@ -38,21 +40,58 @@ public class HSegmentControl: UIControl {
     // MARK: - Control Status
     public var selectedIndex: Int = 0 {
         didSet{
-            select(atIndex: selectedIndex, previousIndex: oldValue)
+            if selectedIndex < numberOfSegments{
+                if selectedIndex != oldValue {
+                    select(atIndex: selectedIndex, previousIndex: oldValue)
+                }
+            }else{
+                selectedIndex = numberOfSegments - 1
+            }
         }
     }
     
     // MARK: - Configuration
-    @IBInspectable public var numberOfDisplayedSegments: Int = 3
-    @IBInspectable public var segmentIndicatorImage: UIImage?{
+    @IBInspectable public var numberOfDisplayedSegments: Int = 3{
         didSet{
-            configureViews()
+            reloadData()
         }
     }
-    @IBInspectable public var segmentIndicatorViewContentMode: UIViewContentMode?
-    @IBInspectable public var segmentIndicatorBackgroundColor: UIColor?
-    @IBInspectable public var unselectedTitleColor: UIColor?
-    @IBInspectable public var selectedTitleColor: UIColor?
+    @IBInspectable public var segmentIndicatorImage: UIImage?{
+        didSet{
+            reloadData()
+        }
+    }
+    @IBInspectable public var segmentIndicatorViewContentMode: UIViewContentMode?{
+        didSet{
+            reloadData()
+        }
+    }
+    @IBInspectable public var segmentIndicatorBackgroundColor: UIColor?{
+        didSet{
+            reloadData()
+        }
+    }
+    @IBInspectable public var unselectedTitleColor: UIColor?{
+        didSet{
+            reloadData()
+        }
+    }
+    @IBInspectable public var selectedTitleColor: UIColor?{
+        didSet{
+            reloadData()
+        }
+    }
+    public var unselectedTitleFont: UIFont?{
+        didSet{
+            reloadData()
+        }
+    }
+    public var selectedTitleFont: UIFont?{
+        didSet{
+            reloadData()
+        }
+    }
+    private let defaultFont = UIFont.systemFontOfSize(UIFont.systemFontSize())
     
     // MARK: - UI Elements
     public var segmentIndicatorView: UIView = UIView()
@@ -68,16 +107,22 @@ public class HSegmentControl: UIControl {
     // MARK: - init
     override public init(frame: CGRect){
         super.init(frame: frame)
-        configureViews()
+        configure()
+        reloadData()
     }
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureViews()
+        configure()
+        reloadData()
     }
     
-    func configureViews(){
+    func configure(){
         clipsToBounds = true
+    }
+    
+    // MARK: - reload data
+    public func reloadData(){
         configureBaseView()
         configureSegmentBaseViews()
         configureIndicatorView()
@@ -104,15 +149,14 @@ public class HSegmentControl: UIControl {
         segmentBaseViews.removeAll(keepCapacity: true)
         
         for index in 0 ..< numberOfSegments{
-//            let segmentBaseView = UIView()
-            let segmentBaseView = dataSource?.segmentControl?(self, segmentViewOfIndex: index) ?? UIView()
+            let segmentBaseView = dataSource?.segmentControl?(self, segmentBackgroundViewOfIndex: index) ?? UIView()
             segmentBaseView.translatesAutoresizingMaskIntoConstraints = false
             
             segmentBaseViews.append(segmentBaseView)
             baseView.addSubview(segmentBaseView)
             
             // width constraint
-            self.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/3, constant: 0))
+            self.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/CGFloat(numberOfDisplayedSegments), constant: 0))
             // height constraint
             baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Height, relatedBy: .Equal, toItem: baseView, attribute: .Height, multiplier: 1, constant: 0))
             // y constraint
@@ -156,7 +200,7 @@ public class HSegmentControl: UIControl {
         baseView.addSubview(segmentIndicatorView)
         
         // width constraint
-        self.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/3, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/CGFloat(numberOfDisplayedSegments), constant: 0))
         // height constraint
         baseView.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .Height, relatedBy: .Equal, toItem: baseView, attribute: .Height, multiplier: 1, constant: 0))
         // y constraint
@@ -178,6 +222,8 @@ public class HSegmentControl: UIControl {
             titleLabel.text = segmentTitles[index]
             titleLabel.textAlignment = .Center
             titleLabel.textColor = index == selectedIndex ? selectedTitleColor : unselectedTitleColor
+            
+            titleLabel.font = (index == selectedIndex ? selectedTitleFont : unselectedTitleFont) ?? defaultFont
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             baseView.addSubview(titleLabel)
             segmentTitleLabels.append(titleLabel)
@@ -212,8 +258,11 @@ public class HSegmentControl: UIControl {
             else{
                 return
         }
-        selectedIndex = calculatedIndex
-        sendActionsForControlEvents(.ValueChanged)
+        
+        if selectedIndex != calculatedIndex{
+            selectedIndex = calculatedIndex
+            sendActionsForControlEvents(.ValueChanged)
+        }
     }
     
     // MARK: - Animation
@@ -221,6 +270,7 @@ public class HSegmentControl: UIControl {
         UIView.animateWithDuration(0.1, animations: {
             if preIndex < self.numberOfSegments{
                 self.segmentTitleLabels[preIndex].textColor = self.unselectedTitleColor
+                self.segmentTitleLabels[preIndex].font = self.unselectedTitleFont ?? self.defaultFont
             }
         }) { (completed) in
             UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
@@ -232,6 +282,7 @@ public class HSegmentControl: UIControl {
                 UIView.animateWithDuration(0.1){
                     if nextIndex < self.numberOfSegments{
                         self.segmentTitleLabels[nextIndex].textColor = self.selectedTitleColor
+                        self.segmentTitleLabels[nextIndex].font = self.selectedTitleFont ?? self.defaultFont
                     }
                 }
             }
@@ -240,7 +291,7 @@ public class HSegmentControl: UIControl {
     
     // MARK: - Set x position constraints
     func setTotalXConstraint(){
-        if selectedIndex < numberOfSegments{
+        if numberOfSegments > numberOfDisplayedSegments && selectedIndex < numberOfSegments{
             // total x constraint
             self.removeConstraint(self.selectedSegmentXContraint)
             if selectedIndex == 0{
