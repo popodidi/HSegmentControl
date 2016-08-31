@@ -1,5 +1,5 @@
 # HSegmentControl
-
+[![CI Status](http://img.shields.io/travis/Chang, Hao/HSegmentControl.svg?style=flat)](https://travis-ci.org/Chang, Hao/HSegmentControl)
 [![Version](https://img.shields.io/cocoapods/v/HSegmentControl.svg?style=flat)](http://cocoapods.org/pods/HSegmentControl)
 [![License](https://img.shields.io/cocoapods/l/HSegmentControl.svg?style=flat)](http://cocoapods.org/pods/HSegmentControl)
 [![Platform](https://img.shields.io/cocoapods/p/HSegmentControl.svg?style=flat)](http://cocoapods.org/pods/HSegmentControl)
@@ -31,7 +31,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-HTagView is available through [CocoaPods](http://cocoapods.org). To install
+HSegmentControl is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
