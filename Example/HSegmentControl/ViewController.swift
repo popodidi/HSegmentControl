@@ -17,12 +17,12 @@ class ViewController: UIViewController, HSegmentControlDataSource {
         // Do any additional setup after loading the view, typically from a nib.
         
         segmentControl.dataSource = self
-        segmentControl.numberOfDisplayedSegments = 5
+        segmentControl.numberOfDisplayedSegments = 3
         segmentControl.segmentIndicatorViewContentMode = UIViewContentMode.Bottom
         segmentControl.selectedTitleFont = UIFont.boldSystemFontOfSize(17)
-        segmentControl.selectedTitleColor = UIColor.darkGrayColor()
+        segmentControl.selectedTitleColor = UIColor(red: 232/255, green: 76/255, blue: 86/255, alpha: 1)
         segmentControl.unselectedTitleFont = UIFont.systemFontOfSize(17)
-        segmentControl.unselectedTitleColor = UIColor.blackColor()
+        segmentControl.unselectedTitleColor = UIColor.darkGrayColor()
         segmentControl.segmentIndicatorImage = UIImage(named: "ind_img")
         segmentControl.segmentIndicatorView.backgroundColor = UIColor.whiteColor()
     }
