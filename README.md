@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/cocoapods/l/HSegmentControl.svg?style=flat)](http://cocoapods.org/pods/HSegmentControl)
 [![Platform](https://img.shields.io/cocoapods/p/HSegmentControl.svg?style=flat)](http://cocoapods.org/pods/HSegmentControl)
 
-HTagView is a customized tag view sublassing UIView where tag could be either with cancel button or multiseletable.
+A customized segment control sublassing UIControl where the view, titles of each segment and the indicator view can all be cutomized.
 
 ### Features
 
