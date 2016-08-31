@@ -1,5 +1,11 @@
 # Change Log
 
+### 1.0.4
+- Travis CI auto deployment
+
+### 1.0.3
+- Try to fix Travis CI auto deployment
+
 ### 1.0.2
 - Add Travis CI auto deployment
 - Add Example/Pods to git
