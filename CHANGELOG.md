@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.0.5
+- Manual Deployment
+
 ### 1.0.4
 - Travis CI auto deployment
 
