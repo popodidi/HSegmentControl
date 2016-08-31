@@ -269,8 +269,12 @@ public class HSegmentControl: UIControl {
     func select(atIndex nextIndex: Int, previousIndex preIndex: Int){
         UIView.animateWithDuration(0.1, animations: {
             if preIndex < self.numberOfSegments{
-                self.segmentTitleLabels[preIndex].textColor = self.unselectedTitleColor
-                self.segmentTitleLabels[preIndex].font = self.unselectedTitleFont ?? self.defaultFont
+                for label in self.segmentTitleLabels{
+                    label.textColor = self.unselectedTitleColor
+                    label.font = self.unselectedTitleFont ?? self.defaultFont
+                }
+//                self.segmentTitleLabels[preIndex].textColor = self.unselectedTitleColor
+//                self.segmentTitleLabels[preIndex].font = self.unselectedTitleFont ?? self.defaultFont
             }
         }) { (completed) in
             UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
