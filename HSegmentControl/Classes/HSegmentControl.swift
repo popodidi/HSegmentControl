@@ -273,8 +273,6 @@ public class HSegmentControl: UIControl {
                     label.textColor = self.unselectedTitleColor
                     label.font = self.unselectedTitleFont ?? self.defaultFont
                 }
-//                self.segmentTitleLabels[preIndex].textColor = self.unselectedTitleColor
-//                self.segmentTitleLabels[preIndex].font = self.unselectedTitleFont ?? self.defaultFont
             }
         }) { (completed) in
             UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
@@ -295,13 +293,15 @@ public class HSegmentControl: UIControl {
     
     // MARK: - Set x position constraints
     func setTotalXConstraint(){
-        if numberOfSegments > numberOfDisplayedSegments && selectedIndex < numberOfSegments{
+        if numberOfSegments > numberOfDisplayedSegments
+            && selectedIndex < numberOfSegments
+            && segmentBaseViews.count > 0{
             // total x constraint
             self.removeConstraint(self.selectedSegmentXContraint)
-            if selectedIndex == 0{
-                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews[selectedIndex], attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
-            }else if selectedIndex == self.numberOfSegments - 1 {
-                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews[selectedIndex], attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
+            if CGFloat(selectedIndex) < CGFloat(self.numberOfDisplayedSegments)/2{
+                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews.first!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
+            }else if CGFloat(selectedIndex) > CGFloat(self.numberOfSegments) - CGFloat(self.numberOfDisplayedSegments)/2 - 1 {
+                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews.last!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
             }else{
                 self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews[selectedIndex], attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
             }
