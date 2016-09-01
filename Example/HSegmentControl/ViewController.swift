@@ -17,7 +17,7 @@ class ViewController: UIViewController, HSegmentControlDataSource {
         // Do any additional setup after loading the view, typically from a nib.
         
         segmentControl.dataSource = self
-        segmentControl.numberOfDisplayedSegments = 3
+        segmentControl.numberOfDisplayedSegments = 4
         segmentControl.segmentIndicatorViewContentMode = UIViewContentMode.Bottom
         segmentControl.selectedTitleFont = UIFont.boldSystemFontOfSize(17)
         segmentControl.selectedTitleColor = UIColor(red: 232/255, green: 76/255, blue: 86/255, alpha: 1)
@@ -29,11 +29,11 @@ class ViewController: UIViewController, HSegmentControlDataSource {
 
     // MARK: - HSegmentControlDataSource protocol
     func numberOfSegments(segmentControl: HSegmentControl) -> Int {
-        return 5
+        return 10
     }
     
     func segmentControl(segmentControl: HSegmentControl, titleOfIndex index: Int) -> String {
-        return ["1","two", "threeeeeee", "four", "five"][index]
+        return ["1","two", "threeeeeee", "four", "five", "1","two", "threeeeeee", "four", "five"][index]
     }
     
     func segmentControl(segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView {

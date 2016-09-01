@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.0.7
+- Fix total offset bug
+
 ### 1.0.6
 - Update `README.md`
 
