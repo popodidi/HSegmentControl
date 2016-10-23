@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.1.0
+- Swift 3
+
 ### 2.0.0
 - Swift 2.3
 - Documentation

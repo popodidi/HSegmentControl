@@ -41,6 +41,7 @@ pod "HSegmentControl"
 Swift version | version
 ---- | ----
 2.3 | 2.0.x
+3.0 | 2.1.0 or later
 
 ## Usage
 
