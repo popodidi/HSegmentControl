@@ -12,6 +12,9 @@ import UIKit
 public class HSegmentControl: UIControl {
 
     // MARK: - Data Source
+    /**
+     HSegmentControlDataSource
+     */
     public var dataSource: HSegmentControlDataSource?{
         didSet{
             reloadData()
@@ -22,6 +25,9 @@ public class HSegmentControl: UIControl {
     }
     
     // MARK: - Calculated variables from data source
+    /**
+     Array of segment titles
+     */
     public var segmentTitles: [String]{
         get{
             var titles = [String]()
@@ -38,6 +44,9 @@ public class HSegmentControl: UIControl {
     }
     
     // MARK: - Control Status
+    /**
+     Selected Index of segment control
+     */
     public var selectedIndex: Int = 0 {
         didSet{
             if selectedIndex < numberOfSegments{
@@ -51,41 +60,65 @@ public class HSegmentControl: UIControl {
     }
     
     // MARK: - Configuration
+    /**
+     The number of displayed segments with 3 as default value
+     */
     @IBInspectable public var numberOfDisplayedSegments: Int = 3{
         didSet{
             reloadData()
         }
     }
+    /**
+     The indicator image of segment control with nil as default value
+     */
     @IBInspectable public var segmentIndicatorImage: UIImage?{
         didSet{
             reloadData()
         }
     }
+    /**
+     The `ContentMode` of segment indicator image view
+     */
     @IBInspectable public var segmentIndicatorViewContentMode: UIViewContentMode?{
         didSet{
             reloadData()
         }
     }
+    /**
+     The bakcgorundColor of segment indicator image view
+     */
     @IBInspectable public var segmentIndicatorBackgroundColor: UIColor?{
         didSet{
             reloadData()
         }
     }
+    /**
+     The title color of unselected segment
+     */
     @IBInspectable public var unselectedTitleColor: UIColor?{
         didSet{
             reloadData()
         }
     }
+    /**
+     The title color of selected segment
+     */
     @IBInspectable public var selectedTitleColor: UIColor?{
         didSet{
             reloadData()
         }
     }
+    /**
+     The font of unselected segment with `UIFont.systemFontOfSize(UIFont.systemFontSize())` as default value
+     */
     public var unselectedTitleFont: UIFont?{
         didSet{
             reloadData()
         }
     }
+    /**
+     The font of selected segment with `UIFont.systemFontOfSize(UIFont.systemFontSize())` as default value
+     */
     public var selectedTitleFont: UIFont?{
         didSet{
             reloadData()
@@ -122,6 +155,9 @@ public class HSegmentControl: UIControl {
     }
     
     // MARK: - reload data
+    /**
+     Reload the segment control
+     */
     public func reloadData(){
         configureBaseView()
         configureSegmentBaseViews()
