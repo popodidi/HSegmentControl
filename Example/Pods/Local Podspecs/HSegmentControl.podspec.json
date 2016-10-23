@@ -1,6 +1,6 @@
 {
   "name": "HSegmentControl",
-  "version": "1.0.7",
+  "version": "2.1.0",
   "summary": "A customized segment control sublassing UIControl.",
   "description": "A customized segment control sublassing UIControl where the view, titles of each segment and the indicator view can all be cutomized.",
   "homepage": "https://github.com/popodidi/HSegmentControl",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/popodidi/HSegmentControl.git",
-    "tag": "1.0.7"
+    "tag": "2.1.0"
   },
   "platforms": {
     "ios": "8.0"

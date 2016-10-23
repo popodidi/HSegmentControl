@@ -9,13 +9,13 @@
 import UIKit
 
 @IBDesignable
-public class HSegmentControl: UIControl {
+open class HSegmentControl: UIControl {
 
     // MARK: - Data Source
     /**
      HSegmentControlDataSource
      */
-    public var dataSource: HSegmentControlDataSource?{
+    open var dataSource: HSegmentControlDataSource?{
         didSet{
             reloadData()
             if selectedIndex >= numberOfSegments {
@@ -28,7 +28,7 @@ public class HSegmentControl: UIControl {
     /**
      Array of segment titles
      */
-    public var segmentTitles: [String]{
+    open var segmentTitles: [String]{
         get{
             var titles = [String]()
             for index in 0 ..< numberOfSegments {
@@ -37,7 +37,7 @@ public class HSegmentControl: UIControl {
             return titles
         }
     }
-    private var numberOfSegments: Int{
+    fileprivate var numberOfSegments: Int{
         get{
             return dataSource?.numberOfSegments(self) ?? 0
         }
@@ -47,7 +47,7 @@ public class HSegmentControl: UIControl {
     /**
      Selected Index of segment control
      */
-    public var selectedIndex: Int = 0 {
+    open var selectedIndex: Int = 0 {
         didSet{
             if selectedIndex < numberOfSegments{
                 if selectedIndex != oldValue {
@@ -63,7 +63,7 @@ public class HSegmentControl: UIControl {
     /**
      The number of displayed segments with 3 as default value
      */
-    @IBInspectable public var numberOfDisplayedSegments: Int = 3{
+    @IBInspectable open var numberOfDisplayedSegments: Int = 3{
         didSet{
             reloadData()
         }
@@ -71,7 +71,7 @@ public class HSegmentControl: UIControl {
     /**
      The indicator image of segment control with nil as default value
      */
-    @IBInspectable public var segmentIndicatorImage: UIImage?{
+    @IBInspectable open var segmentIndicatorImage: UIImage?{
         didSet{
             reloadData()
         }
@@ -79,7 +79,7 @@ public class HSegmentControl: UIControl {
     /**
      The `ContentMode` of segment indicator image view
      */
-    @IBInspectable public var segmentIndicatorViewContentMode: UIViewContentMode?{
+    @IBInspectable open var segmentIndicatorViewContentMode: UIViewContentMode?{
         didSet{
             reloadData()
         }
@@ -87,7 +87,7 @@ public class HSegmentControl: UIControl {
     /**
      The bakcgorundColor of segment indicator image view
      */
-    @IBInspectable public var segmentIndicatorBackgroundColor: UIColor?{
+    @IBInspectable open var segmentIndicatorBackgroundColor: UIColor?{
         didSet{
             reloadData()
         }
@@ -95,7 +95,7 @@ public class HSegmentControl: UIControl {
     /**
      The title color of unselected segment
      */
-    @IBInspectable public var unselectedTitleColor: UIColor?{
+    @IBInspectable open var unselectedTitleColor: UIColor?{
         didSet{
             reloadData()
         }
@@ -103,7 +103,7 @@ public class HSegmentControl: UIControl {
     /**
      The title color of selected segment
      */
-    @IBInspectable public var selectedTitleColor: UIColor?{
+    @IBInspectable open var selectedTitleColor: UIColor?{
         didSet{
             reloadData()
         }
@@ -111,7 +111,7 @@ public class HSegmentControl: UIControl {
     /**
      The font of unselected segment with `UIFont.systemFontOfSize(UIFont.systemFontSize())` as default value
      */
-    public var unselectedTitleFont: UIFont?{
+    open var unselectedTitleFont: UIFont?{
         didSet{
             reloadData()
         }
@@ -119,23 +119,23 @@ public class HSegmentControl: UIControl {
     /**
      The font of selected segment with `UIFont.systemFontOfSize(UIFont.systemFontSize())` as default value
      */
-    public var selectedTitleFont: UIFont?{
+    open var selectedTitleFont: UIFont?{
         didSet{
             reloadData()
         }
     }
-    private let defaultFont = UIFont.systemFontOfSize(UIFont.systemFontSize())
+    fileprivate let defaultFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     
     // MARK: - UI Elements
-    public var segmentIndicatorView: UIView = UIView()
+    open var segmentIndicatorView: UIView = UIView()
     
-    private var baseView: UIView!
-    private var segmentBaseViews: [UIView] = []
-    private var segmentTitleLabels: [UILabel] = []
+    fileprivate var baseView: UIView!
+    fileprivate var segmentBaseViews: [UIView] = []
+    fileprivate var segmentTitleLabels: [UILabel] = []
     
     // MARK: - Constraints for animation
-    private var indicatorXConstraint = NSLayoutConstraint()
-    private var selectedSegmentXContraint = NSLayoutConstraint()
+    fileprivate var indicatorXConstraint = NSLayoutConstraint()
+    fileprivate var selectedSegmentXContraint = NSLayoutConstraint()
     
     // MARK: - init
     override public init(frame: CGRect){
@@ -158,7 +158,7 @@ public class HSegmentControl: UIControl {
     /**
      Reload the segment control
      */
-    public func reloadData(){
+    open func reloadData(){
         configureBaseView()
         configureSegmentBaseViews()
         configureIndicatorView()
@@ -168,12 +168,12 @@ public class HSegmentControl: UIControl {
 
     // MARK: - View Configuration
     func configureBaseView(){
-        baseView = UIView(frame: CGRect(origin: CGPointZero, size: self.frame.size))
+        baseView = UIView(frame: CGRect(origin: CGPoint.zero, size: self.frame.size))
         baseView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(baseView)
         
-        let heightContraint = NSLayoutConstraint(item: baseView, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 1, constant: 0)
-        let yContraint = NSLayoutConstraint(item: baseView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
+        let heightContraint = NSLayoutConstraint(item: baseView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1, constant: 0)
+        let yContraint = NSLayoutConstraint(item: baseView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         
         self.addConstraints([heightContraint, yContraint])
     }
@@ -182,7 +182,7 @@ public class HSegmentControl: UIControl {
         for segmentBaseView in segmentBaseViews{
             segmentBaseView.removeFromSuperview()
         }
-        segmentBaseViews.removeAll(keepCapacity: true)
+        segmentBaseViews.removeAll(keepingCapacity: true)
         
         for index in 0 ..< numberOfSegments{
             let segmentBaseView = dataSource?.segmentControl?(self, segmentBackgroundViewOfIndex: index) ?? UIView()
@@ -192,33 +192,33 @@ public class HSegmentControl: UIControl {
             baseView.addSubview(segmentBaseView)
             
             // width constraint
-            self.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/CGFloat(numberOfDisplayedSegments), constant: 0))
+            self.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1/CGFloat(numberOfDisplayedSegments), constant: 0))
             // height constraint
-            baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Height, relatedBy: .Equal, toItem: baseView, attribute: .Height, multiplier: 1, constant: 0))
+            baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .height, relatedBy: .equal, toItem: baseView, attribute: .height, multiplier: 1, constant: 0))
             // y constraint
-            baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .CenterY, relatedBy: .Equal, toItem: baseView, attribute: .CenterY, multiplier: 1, constant: 0))
+            baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .centerY, relatedBy: .equal, toItem: baseView, attribute: .centerY, multiplier: 1, constant: 0))
             
             // leading constraint
             if index == 0 {
-                baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Leading, relatedBy: .Equal, toItem: baseView, attribute: .Leading, multiplier: 1, constant: 0))
+                baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .leading, relatedBy: .equal, toItem: baseView, attribute: .leading, multiplier: 1, constant: 0))
             }else{
-                baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Leading, relatedBy: .Equal, toItem: segmentBaseViews[index-1], attribute: .Trailing, multiplier: 1, constant: 0))
+                baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .leading, relatedBy: .equal, toItem: segmentBaseViews[index-1], attribute: .trailing, multiplier: 1, constant: 0))
             }
             
             // trailing constraint
             if index == numberOfSegments - 1 {
-                baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .Trailing, relatedBy: .Equal, toItem: baseView, attribute: .Trailing, multiplier: 1, constant: 0))
+                baseView.addConstraint(NSLayoutConstraint(item: segmentBaseView, attribute: .trailing, relatedBy: .equal, toItem: baseView, attribute: .trailing, multiplier: 1, constant: 0))
             }
             
             // total x constraint
             if index == selectedIndex {
                 self.removeConstraint(selectedSegmentXContraint)
                 if index == 0{
-                    selectedSegmentXContraint = NSLayoutConstraint(item: segmentBaseView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
+                    selectedSegmentXContraint = NSLayoutConstraint(item: segmentBaseView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0)
                 }else if index == numberOfSegments - 1 {
-                    selectedSegmentXContraint = NSLayoutConstraint(item: segmentBaseView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
+                    selectedSegmentXContraint = NSLayoutConstraint(item: segmentBaseView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
                 }else{
-                    selectedSegmentXContraint = NSLayoutConstraint(item: segmentBaseView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+                    selectedSegmentXContraint = NSLayoutConstraint(item: segmentBaseView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
                 }
                 self.addConstraint(selectedSegmentXContraint)
             }
@@ -231,16 +231,16 @@ public class HSegmentControl: UIControl {
         segmentIndicatorView = UIImageView()
         segmentIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         (segmentIndicatorView as? UIImageView)?.image = segmentIndicatorImage
-        (segmentIndicatorView as? UIImageView)?.contentMode = segmentIndicatorViewContentMode ?? .Bottom
+        (segmentIndicatorView as? UIImageView)?.contentMode = segmentIndicatorViewContentMode ?? .bottom
         
         baseView.addSubview(segmentIndicatorView)
         
         // width constraint
-        self.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1/CGFloat(numberOfDisplayedSegments), constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1/CGFloat(numberOfDisplayedSegments), constant: 0))
         // height constraint
-        baseView.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .Height, relatedBy: .Equal, toItem: baseView, attribute: .Height, multiplier: 1, constant: 0))
+        baseView.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .height, relatedBy: .equal, toItem: baseView, attribute: .height, multiplier: 1, constant: 0))
         // y constraint
-        baseView.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .CenterY, relatedBy: .Equal, toItem: baseView, attribute: .CenterY, multiplier: 1, constant: 0))
+        baseView.addConstraint(NSLayoutConstraint(item: segmentIndicatorView, attribute: .centerY, relatedBy: .equal, toItem: baseView, attribute: .centerY, multiplier: 1, constant: 0))
         
         
         setIndicatorXConstraint()
@@ -251,12 +251,12 @@ public class HSegmentControl: UIControl {
         for segmentTitleLabel in segmentTitleLabels{
             segmentTitleLabel.removeFromSuperview()
         }
-        segmentTitleLabels.removeAll(keepCapacity: true)
+        segmentTitleLabels.removeAll(keepingCapacity: true)
         
         for index in 0 ..< numberOfSegments{
             let titleLabel = UILabel()
             titleLabel.text = segmentTitles[index]
-            titleLabel.textAlignment = .Center
+            titleLabel.textAlignment = .center
             titleLabel.textColor = index == selectedIndex ? selectedTitleColor : unselectedTitleColor
             
             titleLabel.font = (index == selectedIndex ? selectedTitleFont : unselectedTitleFont) ?? defaultFont
@@ -264,27 +264,27 @@ public class HSegmentControl: UIControl {
             baseView.addSubview(titleLabel)
             segmentTitleLabels.append(titleLabel)
             
-            let widthContraint = NSLayoutConstraint(item: titleLabel, attribute: .Width, relatedBy: .Equal, toItem: segmentBaseViews[index], attribute: .Width, multiplier: 0.8, constant: 0)
-            let heightContraint = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: segmentBaseViews[index], attribute: .Height, multiplier: 0.8, constant: 0)
-            let xContraint = NSLayoutConstraint(item: titleLabel, attribute: .CenterX, relatedBy: .Equal, toItem: segmentBaseViews[index], attribute: .CenterX, multiplier: 1, constant: 0)
-            let yContraint = NSLayoutConstraint(item: titleLabel, attribute: .CenterY, relatedBy: .Equal, toItem: segmentBaseViews[index], attribute: .CenterY, multiplier: 1, constant: 0)
+            let widthContraint = NSLayoutConstraint(item: titleLabel, attribute: .width, relatedBy: .equal, toItem: segmentBaseViews[index], attribute: .width, multiplier: 0.8, constant: 0)
+            let heightContraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: segmentBaseViews[index], attribute: .height, multiplier: 0.8, constant: 0)
+            let xContraint = NSLayoutConstraint(item: titleLabel, attribute: .centerX, relatedBy: .equal, toItem: segmentBaseViews[index], attribute: .centerX, multiplier: 1, constant: 0)
+            let yContraint = NSLayoutConstraint(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: segmentBaseViews[index], attribute: .centerY, multiplier: 1, constant: 0)
             
             baseView.addConstraints([widthContraint, heightContraint, xContraint, yContraint])
         }
     }
     
     // MARK: - Subclassing UIView
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
     }
     
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
-        guard let location = touches.first?.locationInView(baseView) else{
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        guard let location = touches.first?.location(in: baseView) else{
             return
         }
         guard let calculatedIndex = { () -> Int? in
-            for (index, segmentBaseView) in segmentBaseViews.enumerate() {
+            for (index, segmentBaseView) in segmentBaseViews.enumerated() {
                 if segmentBaseView.frame.contains(location) {
                     return index
                 }
@@ -297,34 +297,34 @@ public class HSegmentControl: UIControl {
         
         if selectedIndex != calculatedIndex{
             selectedIndex = calculatedIndex
-            sendActionsForControlEvents(.ValueChanged)
+            sendActions(for: .valueChanged)
         }
     }
     
     // MARK: - Animation
     func select(atIndex nextIndex: Int, previousIndex preIndex: Int){
-        UIView.animateWithDuration(0.1, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             if preIndex < self.numberOfSegments{
                 for label in self.segmentTitleLabels{
                     label.textColor = self.unselectedTitleColor
                     label.font = self.unselectedTitleFont ?? self.defaultFont
                 }
             }
-        }) { (completed) in
-            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .CurveEaseOut, animations: {
+        }, completion: { (completed) in
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
                 self.setTotalXConstraint()
                 self.setIndicatorXConstraint()
                 self.addConstraint(self.selectedSegmentXContraint)
                 self.layoutIfNeeded()
             }){ (completed) in
-                UIView.animateWithDuration(0.1){
+                UIView.animate(withDuration: 0.1, animations: {
                     if nextIndex < self.numberOfSegments{
                         self.segmentTitleLabels[nextIndex].textColor = self.selectedTitleColor
                         self.segmentTitleLabels[nextIndex].font = self.selectedTitleFont ?? self.defaultFont
                     }
-                }
+                })
             }
-        }
+        }) 
     }
     
     // MARK: - Set x position constraints
@@ -335,11 +335,11 @@ public class HSegmentControl: UIControl {
             // total x constraint
             self.removeConstraint(self.selectedSegmentXContraint)
             if CGFloat(selectedIndex) < CGFloat(self.numberOfDisplayedSegments)/2{
-                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews.first!, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
+                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews.first!, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0)
             }else if CGFloat(selectedIndex) > CGFloat(self.numberOfSegments) - CGFloat(self.numberOfDisplayedSegments)/2 - 1 {
-                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews.last!, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
+                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews.last!, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
             }else{
-                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews[selectedIndex], attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
+                self.selectedSegmentXContraint = NSLayoutConstraint(item: self.segmentBaseViews[selectedIndex], attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
             }
         }
     }
@@ -347,7 +347,7 @@ public class HSegmentControl: UIControl {
     func setIndicatorXConstraint(){
         if selectedIndex < self.numberOfSegments {
             self.baseView.removeConstraint(self.indicatorXConstraint)
-            self.indicatorXConstraint = NSLayoutConstraint(item: self.segmentIndicatorView, attribute: .CenterX, relatedBy: .Equal, toItem: self.segmentBaseViews[selectedIndex], attribute: .CenterX, multiplier: 1, constant: 0)
+            self.indicatorXConstraint = NSLayoutConstraint(item: self.segmentIndicatorView, attribute: .centerX, relatedBy: .equal, toItem: self.segmentBaseViews[selectedIndex], attribute: .centerX, multiplier: 1, constant: 0)
             self.baseView.addConstraint(self.indicatorXConstraint)
         }
     }
