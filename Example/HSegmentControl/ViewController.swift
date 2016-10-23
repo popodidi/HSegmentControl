@@ -18,31 +18,31 @@ class ViewController: UIViewController, HSegmentControlDataSource {
         
         segmentControl.dataSource = self
         segmentControl.numberOfDisplayedSegments = 4
-        segmentControl.segmentIndicatorViewContentMode = UIViewContentMode.Bottom
-        segmentControl.selectedTitleFont = UIFont.boldSystemFontOfSize(17)
+        segmentControl.segmentIndicatorViewContentMode = UIViewContentMode.bottom
+        segmentControl.selectedTitleFont = UIFont.boldSystemFont(ofSize: 17)
         segmentControl.selectedTitleColor = UIColor(red: 232/255, green: 76/255, blue: 86/255, alpha: 1)
-        segmentControl.unselectedTitleFont = UIFont.systemFontOfSize(17)
-        segmentControl.unselectedTitleColor = UIColor.darkGrayColor()
+        segmentControl.unselectedTitleFont = UIFont.systemFont(ofSize: 17)
+        segmentControl.unselectedTitleColor = UIColor.darkGray
         segmentControl.segmentIndicatorImage = UIImage(named: "ind_img")
-        segmentControl.segmentIndicatorView.backgroundColor = UIColor.whiteColor()
+        segmentControl.segmentIndicatorView.backgroundColor = UIColor.white
     }
 
     // MARK: - HSegmentControlDataSource protocol
-    func numberOfSegments(segmentControl: HSegmentControl) -> Int {
+    func numberOfSegments(_ segmentControl: HSegmentControl) -> Int {
         return 10
     }
     
-    func segmentControl(segmentControl: HSegmentControl, titleOfIndex index: Int) -> String {
+    func segmentControl(_ segmentControl: HSegmentControl, titleOfIndex index: Int) -> String {
         return ["1","two", "threeeeeee", "four", "five", "1","two", "threeeeeee", "four", "five"][index]
     }
     
-    func segmentControl(segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView {
+    func segmentControl(_ segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView {
         let view = UIView()
         view.backgroundColor = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1)
         return view
     }
     
-    @IBAction func valueChanged(sender: AnyObject) {
+    @IBAction func valueChanged(_ sender: AnyObject) {
         print("value did change to \((sender as! HSegmentControl).selectedIndex)")
     }
 
