@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## HSegmentControl
 
-Copyright (c) 2016 Chang, Hao <popodidi@livemail.tw>
+Copyright (c) 2016 Chang, Hao
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

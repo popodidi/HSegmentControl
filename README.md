@@ -17,7 +17,7 @@ A customized segment control sublassing UIControl where the view, titles of each
 - [x] DataSource protocol
 	- Number of segments
 	- Segment background view (optional)
-- [ ] Documentation
+- [x] Documentation
 
 ### Demo
 
@@ -37,6 +37,10 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "HSegmentControl"
 ```
+
+Swift version | version
+---- | ----
+2.3 | 2.0.x
 
 ## Usage
 
