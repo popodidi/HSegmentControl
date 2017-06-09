@@ -15,7 +15,7 @@ open class HSegmentControl: UIControl {
     /**
      HSegmentControlDataSource
      */
-    open var dataSource: HSegmentControlDataSource?{
+    open weak var dataSource: HSegmentControlDataSource?{
         didSet{
             reloadData()
             if selectedIndex >= numberOfSegments {
@@ -185,7 +185,7 @@ open class HSegmentControl: UIControl {
         segmentBaseViews.removeAll(keepingCapacity: true)
         
         for index in 0 ..< numberOfSegments{
-            let segmentBaseView = dataSource?.segmentControl?(self, segmentBackgroundViewOfIndex: index) ?? UIView()
+            let segmentBaseView = dataSource?.segmentControl(self, segmentBackgroundViewOfIndex: index) ?? UIView()
             segmentBaseView.translatesAutoresizingMaskIntoConstraints = false
             
             segmentBaseViews.append(segmentBaseView)
