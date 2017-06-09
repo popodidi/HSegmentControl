@@ -8,8 +8,7 @@
 
 import Foundation
 
-@objc
-public protocol HSegmentControlDataSource {
+public protocol HSegmentControlDataSource: class {
     /**
      Retrun the total number of segments
      */
@@ -22,5 +21,11 @@ public protocol HSegmentControlDataSource {
      Return background view of each segment.
      The background view will be set with constraints to fit the size of each segment and will be set to `UIView()` if this method is not implemented.
      */
-    @objc optional func segmentControl(_ segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView
+    func segmentControl(_ segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView
+}
+
+extension HSegmentControlDataSource {
+    func segmentControl(_ segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView {
+        return UIView()
+    }
 }
