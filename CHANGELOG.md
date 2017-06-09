@@ -1,5 +1,9 @@
 # Change Log
 
+### 2.1.1
+- `HSegmentControlDatasSource` more swifty
+- use `weak var` instead
+
 ### 2.1.0
 - Swift 3
 
