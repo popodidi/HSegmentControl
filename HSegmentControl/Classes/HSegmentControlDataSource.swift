@@ -24,7 +24,7 @@ public protocol HSegmentControlDataSource: class {
     func segmentControl(_ segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView
 }
 
-extension HSegmentControlDataSource {
+public extension HSegmentControlDataSource {
     func segmentControl(_ segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView {
         return UIView()
     }

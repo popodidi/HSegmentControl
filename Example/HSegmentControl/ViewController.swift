@@ -36,6 +36,7 @@ class ViewController: UIViewController, HSegmentControlDataSource {
         return ["1","two", "threeeeeee", "four", "five", "1","two", "threeeeeee", "four", "five"][index]
     }
     
+    
     func segmentControl(_ segmentControl: HSegmentControl, segmentBackgroundViewOfIndex index: Int) -> UIView {
         let view = UIView()
         view.backgroundColor = UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1)

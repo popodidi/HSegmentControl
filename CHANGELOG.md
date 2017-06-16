@@ -1,4 +1,6 @@
 # Change Log
+### 2.1.2
+- public `HSegmentControlDataSource` extension
 
 ### 2.1.1
 - `HSegmentControlDatasSource` more swifty
